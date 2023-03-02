@@ -16,9 +16,9 @@ with open(MERGED_DATASET_FILE, "r") as merged_dataset_file:
 output_lines = list()
 for line in lines:
     #  Read the line and clean it for easier processing
-    data, type = line.split("|")
-    data = data.strip().split(" ")
-    type = type.strip()
+    split_line = line.strip().split(" ")
+    data = split_line[:-1]
+    data_type = split_line[-1:][0]
 
     lp = 0
     while lp < len(data):  # Apply the sliding window
@@ -26,7 +26,7 @@ for line in lines:
         if len(w) < WINDOW_SIZE and STEP_SIZE == 1:  # We don't allow windows < WINDOW_SIZE unless STEP_SIZE is bigger than 1
             break
 
-        windowed_line = " ".join(w) + " | " + type + "\n"  # Merge the line again
+        windowed_line = " ".join(w) + " " + data_type + "\n"  # Merge the line again
         output_lines.append(windowed_line)
         lp += STEP_SIZE
 

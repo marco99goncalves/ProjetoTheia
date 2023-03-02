@@ -36,7 +36,7 @@ for root, dir, files in os.walk(INPUT_FOLDER):
             else:
                 file_type = "WS"
 
-        lines.append(" ".join(line) + " | " + file_type + "\n")
+        lines.append(" ".join(line) + " " + file_type + "\n")
 
 f.writelines(lines)
 f.close()
