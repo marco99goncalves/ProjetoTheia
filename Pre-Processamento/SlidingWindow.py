@@ -26,7 +26,7 @@ for line in lines:
         if len(w) < WINDOW_SIZE and STEP_SIZE == 1:  # We don't allow windows < WINDOW_SIZE unless STEP_SIZE is bigger than 1
             break
 
-        windowed_line = " ".join(w) + " " + data_type + "\n"  # Merge the line again
+        windowed_line = " ".join(w) + " | " + data_type + "\n"  # Merge the line again
         output_lines.append(windowed_line)
         lp += STEP_SIZE
 
