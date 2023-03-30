@@ -1,7 +1,6 @@
 import os
 
 INPUT_FOLDER = "Inputs"
-STEP_SIZE = 2
 
 f = open("dataset_merged.txt", "w")
 
