@@ -4,7 +4,6 @@ from numpy.lib.stride_tricks import sliding_window_view
 import shutil
 
 # Define the size of the sliding window
-WINDOW_SIZE = 3
 WINDOWED_FILE = "dataset_merged_windowed.txt"
 FREQUENCY_FILE = "frequency.txt"
 MAX_NUMBER = 340  # Confirm with professor

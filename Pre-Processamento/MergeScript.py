@@ -2,40 +2,42 @@ import os
 
 INPUT_FOLDER = "Inputs"
 
-f = open("dataset_merged.txt", "w")
 
-# Loop through all files in the Inputs directory
-lines = list()
-for root, dir, files in os.walk(INPUT_FOLDER):
-    for file in files:
-        cur_file_path = os.path.join(root, file)
+def run():
+    f = open("dataset_merged.txt", "w")
 
-        with open(cur_file_path, "r") as input_file:
-            line = input_file.readline().strip().split(" ")  # Gives the current files content in list form
+    # Loop through all files in the Inputs directory
+    lines = list()
+    for root, dir, files in os.walk(INPUT_FOLDER):
+        for file in files:
+            cur_file_path = os.path.join(root, file)
 
-        if cur_file_path.lower().find("attack") != -1:
-            file_type = "A"
-        elif cur_file_path.lower().find("training") != -1:
-            file_type = "T"
-        else:
-            file_type = "V"
+            with open(cur_file_path, "r") as input_file:
+                line = input_file.readline().strip().split(" ")  # Gives the current files content in list form
 
-        file_lower = file.lower()
-        if file_type == "A":  # Get the attack type
-            if file_lower.find("adduser") != -1:
-                file_type = "AU"
-            elif file_lower.find("hydra-ftp") != -1:
-                file_type = "HFTP"
-            elif file_lower.find("hydra-ssh") != -1:
-                file_type = "HSSH"
-            elif file_lower.find("java") != -1:
-                file_type = "J"
-            elif file_lower.find("meterpreter") != -1:
-                file_type = "M"
+            if cur_file_path.lower().find("attack") != -1:
+                file_type = "A"
+            elif cur_file_path.lower().find("training") != -1:
+                file_type = "TR"
             else:
-                file_type = "WS"
+                file_type = "V"
 
-        lines.append(" ".join(line) + " " + file_type + "\n")
+            file_lower = file.lower()
+            if file_type == "A":  # Get the attack type
+                if file_lower.find("adduser") != -1:
+                    file_type = "AU"
+                elif file_lower.find("hydra-ftp") != -1:
+                    file_type = "HFTP"
+                elif file_lower.find("hydra-ssh") != -1:
+                    file_type = "HSSH"
+                elif file_lower.find("java") != -1:
+                    file_type = "J"
+                elif file_lower.find("meterpreter") != -1:
+                    file_type = "M"
+                else:
+                    file_type = "WS"
 
-f.writelines(lines)
-f.close()
+            lines.append(" ".join(line) + " " + file_type + "\n")
+
+    f.writelines(lines)
+    f.close()
