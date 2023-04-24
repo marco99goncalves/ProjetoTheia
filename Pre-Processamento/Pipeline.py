@@ -3,6 +3,7 @@ import argparse
 import MergeScript
 import SlidingWindow
 import SubsetCreator
+import time
 
 parser = argparse.ArgumentParser(description="A simple pipeline to create random tests for the Theia Project")
 
@@ -19,10 +20,20 @@ parser.add_argument('-w', '--window', type=int, help="Window size to use, ignore
 args = parser.parse_args()
 
 if args.preprocess:  # Run the merge and sliding window scripts
+    st = time.time()
     print("Running merge script")
     MergeScript.run()
+    et = time.time()
+    print("Ran merge script in: " + str(et - st))
+
+    st = time.time()
     print("Running sliding window script")
     SlidingWindow.run(args.window)
+    et = time.time()
+    print("Ran sliding window in: " + str(et - st))
 
+st = time.time()
 print("Running subset creator script")
 SubsetCreator.run(args.attack, args.validation, args.training)
+et = time.time()
+print("Ran subset creator script in: " + str(et - st))
