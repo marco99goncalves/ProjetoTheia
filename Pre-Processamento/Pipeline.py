@@ -4,6 +4,7 @@ import MergeScript
 import SlidingWindow
 import SubsetCreator
 import time
+import Frequency
 
 parser = argparse.ArgumentParser(description="A simple pipeline to create random tests for the Theia Project")
 
@@ -32,8 +33,20 @@ if args.preprocess:  # Run the merge and sliding window scripts
     et = time.time()
     print("Ran sliding window in: " + str(et - st))
 
+    st = time.time()
+    print("Running frequency script")
+    Frequency.run()rurun_frequencyn
+    et = time.time()
+    print("Ran frequency script in: " + str(et - st))
+
 st = time.time()
-print("Running subset creator script")
+print("Running subset creator script for Sequence")
 SubsetCreator.run(args.attack, args.validation, args.training)
 et = time.time()
-print("Ran subset creator script in: " + str(et - st))
+print("Ran subset creator script for Sequence in: " + str(et - st))
+
+st = time.time()
+print("Running subset creator script for Frequence")
+SubsetCreator.run_frequency(args.attack, args.validation, args.training)
+et = time.time()
+print("Ran subset creator script for Frequence in: " + str(et - st))
