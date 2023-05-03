@@ -35,7 +35,7 @@ if args.preprocess:  # Run the merge and sliding window scripts
 
     st = time.time()
     print("Running frequency script")
-    Frequency.run()rurun_frequencyn
+    Frequency.run()
     et = time.time()
     print("Ran frequency script in: " + str(et - st))
 
