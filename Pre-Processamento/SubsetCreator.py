@@ -6,8 +6,6 @@ INPUT_MERGED_FILE_FREQUENCY = "frequency.txt"
 OUTPUT_FILE = "../testing_dataset.txt"
 OUTPUT_FILE_FREQUENCY = "../testing_dataset_frequency.txt"
 
-MAX_NUMBER = 345  # Confirm with professor
-
 def run(attack, validation, training):
     df = pd.read_csv(INPUT_MERGED_FILE, header=None, names=["Data", "Type"], delimiter="|")
     df = df.drop_duplicates() # Removes duplicate lines, since they offer no information
@@ -43,7 +41,7 @@ def run(attack, validation, training):
     final_df = pd.concat([add_user_rows_sampled, hydra_ftp_rows_sampled, hydra_ssh_sampled, java_rows_sampled, meterpreter_rows_sampled, web_shell_rows_sampled, training_rows_sampled, validation_rows_sampled], axis=0)
     final_df.to_csv(OUTPUT_FILE, index=False, header=False, sep='|', quoting=csv.QUOTE_NONE)
 
-def run_frequency(attack, validation, training):
+def run_frequency(attack, validation, training, MAX_NUMBER):
     column_names = [f'a{i}' for i in range(MAX_NUMBER)] + ['Type']
     
     df_chunk = pd.read_csv(r"frequency.txt", header=None, names=column_names, sep=" ", chunksize=500000)

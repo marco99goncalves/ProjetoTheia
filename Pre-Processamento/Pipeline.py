@@ -6,6 +6,8 @@ import SubsetCreator
 import time
 import Frequency
 
+MAX_NUMBER = 345
+
 parser = argparse.ArgumentParser(description="A simple pipeline to create random tests for the Theia Project")
 
 parser.add_argument('-p', '--preprocess', action='store_true', help="Run the Pre-Processing Scripts", required=False,
@@ -35,7 +37,7 @@ if args.preprocess:  # Run the merge and sliding window scripts
 
     st = time.time()
     print("Running frequency script")
-    Frequency.run()
+    Frequency.run(MAX_NUMBER)
     et = time.time()
     print("Ran frequency script in: " + str(et - st))
 
@@ -47,6 +49,6 @@ print("Ran subset creator script for Sequence in: " + str(et - st))
 
 st = time.time()
 print("Running subset creator script for Frequence")
-SubsetCreator.run_frequency(args.attack, args.validation, args.training)
+SubsetCreator.run_frequency(args.attack, args.validation, args.training, 345)
 et = time.time()
 print("Ran subset creator script for Frequence in: " + str(et - st))

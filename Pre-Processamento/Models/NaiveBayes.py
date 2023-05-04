@@ -1,30 +1,41 @@
-import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import confusion_matrix, classification_report
-from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import classification_report, confusion_matrix
+import pandas as pd
 
-INPUT_FILE = "testing_dataset.txt"
+MAX_NUMBER = 345
+JUST_CHECK_ATTACKS = True
 
-df = pd.read_csv(INPUT_FILE, header=None, names=["Data", "Type"], delimiter="|")
+INPUT_FILE = "testing_dataset_frequency.txt"
 
-encoder = LabelEncoder()
-data = encoder.fit_transform(df["Data"])
+column_names = [f'a{i}' for i in range(MAX_NUMBER)] + ['Type']
 
-labels = df["Type"].values
+df = pd.read_csv(INPUT_FILE, header=None, names=column_names, delimiter=" ")
 
-data = data.reshape(-1, 1)  # Reshape the data for compatibility with KNeighborsClassifier
+if JUST_CHECK_ATTACKS:
+    df.replace('AU', 'A', inplace=True)
+    df.replace('HFTP', 'A', inplace=True)
+    df.replace('HSSH', 'A', inplace=True)
+    df.replace('J', 'A', inplace=True)
+    df.replace('M', 'A', inplace=True)
+    df.replace('WS', 'A', inplace=True)
+    df.replace('TR', 'V', inplace=True)
 
-# Split data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.3, random_state=42)
+target = df["Type"]
+features = df.drop(["Type"], axis=1)
 
-gnb = GaussianNB()
+target = target.values
+features = features.values
+
+X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.3, random_state=42)
+
+model = GaussianNB()
 
 # Train the model using the training data
-gnb.fit(X_train, y_train)
+model.fit(X_train, y_train)
 
 # Predict the labels of the test set
-y_pred = gnb.predict(X_test)
+y_pred = model.predict(X_test)
 
 # Calculate confusion matrix
 cm = confusion_matrix(y_test, y_pred)

@@ -6,9 +6,8 @@ import shutil
 # Define the size of the sliding window
 WINDOWED_FILE = "dataset_merged_windowed.txt"
 FREQUENCY_FILE = "frequency.txt"
-MAX_NUMBER = 345  # Confirm with professor
 
-def run():
+def run(MAX_NUMBER):
     # Loop through all files in the Inputs directory
     with open(WINDOWED_FILE, "r") as windowed_file:
         lines = windowed_file.readlines()
