@@ -9,15 +9,16 @@ INPUT_FILE = "testing_dataset.txt"
 
 df = pd.read_csv(INPUT_FILE, header=None, names=["Data", "Type"], delimiter="|")
 
-encoder = LabelEncoder()
-data = encoder.fit_transform(df["Data"])
+print(df)
 
-labels = df["Type"].values
+features = df.drop(["Type"], axis=1)
+target = df["Type"]
 
-data = data.reshape(-1, 1)  # Reshape the data for compatibility with KNeighborsClassifier
+features = features.values
+target = target.values
 
 # Split data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.3, random_state=42)
 
 #-----------------------------------------------------------------------------------------------
 #-----------------------------------CRIAÇÃO DAS CAMADAS DO MODELO------------------------------------------
@@ -32,8 +33,10 @@ model.add(Flatten())
 model.add(Dense(1, activation='sigmoid'))
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
+print(model.summary())
+
 # Train the model using the training data
-model.fit(X_train, y_train)
+model.fit(X_train, y_train, epochs=30, batch_size=1)
 
 # Predict the labels of the test set
 y_pred = model.predict(X_test)
