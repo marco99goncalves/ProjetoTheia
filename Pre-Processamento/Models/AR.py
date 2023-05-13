@@ -7,15 +7,25 @@ from sklearn.preprocessing import LabelEncoder
 
 INPUT_FILE = "testing_dataset.txt"
 
-df = pd.read_csv(INPUT_FILE, header=None, names=["Data", "Type"], delimiter="|")
+column_names = [f'a{i}' for i in range(11)] + ['Type']
 
-print(df)
+df = pd.read_csv(INPUT_FILE, header=None, names=column_names, delimiter=" ")
+
+df = df.drop(["a10"], axis=1)
+df.replace('AU', 1, inplace=True)
+df.replace('HFTP', 1, inplace=True)
+df.replace('HSSH', 1, inplace=True)
+df.replace('J', 1, inplace=True)
+df.replace('M', 1, inplace=True)
+df.replace('WS', 1, inplace=True)
+df.replace('TR', 0, inplace=True)
+df.replace('V', 0, inplace=True)
 
 features = df.drop(["Type"], axis=1)
 target = df["Type"]
 
-features = features.values
-target = target.values
+#features = features.values
+#target = target.values
 
 # Split data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.3, random_state=42)
