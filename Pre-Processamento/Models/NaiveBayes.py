@@ -2,6 +2,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
+import time
+import matplotlib.pyplot as plt
+from sklearn import metrics
+import numpy as np
 
 MAX_NUMBER = 345
 JUST_CHECK_ATTACKS = True
@@ -32,10 +36,16 @@ X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=
 model = GaussianNB()
 
 # Train the model using the training data
+st = time.time()
 model.fit(X_train, y_train)
+et = time.time()
+print("Training Phase: " + str(et - st))
 
 # Predict the labels of the test set
+st = time.time()
 y_pred = model.predict(X_test)
+et = time.time()
+print("Testing Phase: " + str(et - st))
 
 # Calculate confusion matrix
 cm = confusion_matrix(y_test, y_pred)
@@ -56,3 +66,16 @@ print("Confusion Matrix:")
 print(confusion_matrix(y_test, y_pred))
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
+
+y_test = np.array([(1 if xi == "A" else 0) for xi in y_test])
+y_pred = np.array([(1 if xi == "A" else 0) for xi in y_pred])
+
+fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred)
+auc = metrics.roc_auc_score(y_test, y_pred)
+
+#create ROC curve
+plt.plot(fpr,tpr,label="AUC="+str(auc))
+plt.ylabel('Taxa Verdadeiros Positivos')
+plt.xlabel('Taxa Falsos Positivos')
+plt.legend(loc=4)
+plt.show()

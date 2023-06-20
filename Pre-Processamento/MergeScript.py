@@ -1,6 +1,6 @@
 import os
 
-INPUT_FOLDER = "Inputs"
+INPUT_FOLDER = "Pre-Processamento/Inputs"
 
 
 def run():

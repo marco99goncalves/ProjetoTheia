@@ -3,8 +3,8 @@ import csv
 
 INPUT_MERGED_FILE = "dataset_merged_windowed.txt"
 INPUT_MERGED_FILE_FREQUENCY = "frequency.txt"
-OUTPUT_FILE = "../testing_dataset.txt"
-OUTPUT_FILE_FREQUENCY = "../testing_dataset_frequency.txt"
+OUTPUT_FILE = "testing_dataset.txt"
+OUTPUT_FILE_FREQUENCY = "testing_dataset_frequency.txt"
 
 def run(attack, validation, training):
     df = pd.read_csv(INPUT_MERGED_FILE, header=None, names=["Data", "Type"], delimiter="|")
