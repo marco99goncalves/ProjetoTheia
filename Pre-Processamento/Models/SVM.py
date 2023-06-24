@@ -79,8 +79,8 @@ fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred)
 auc = metrics.roc_auc_score(y_test, y_pred)
 
 #create ROC curve
-plt.plot(fpr,tpr,label="AUC="+str(auc),  print.auc.pattern = "%.3f (%.3f-%.3f)")
+plt.plot(fpr,tpr,label="AUC={:.3f}".format(auc))
 plt.ylabel('Taxa Verdadeiros Positivos')
 plt.xlabel('Taxa Falsos Positivos')
 plt.legend(loc=4)
-plt.savefig(f"Imagens/SVM_W{args.window}")
+plt.savefig(f"Imagens/Results/SVM_W{args.window}.pdf")
