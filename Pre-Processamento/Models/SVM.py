@@ -6,6 +6,11 @@ import time
 import matplotlib.pyplot as plt
 from sklearn import metrics
 import numpy as np
+import argparse
+
+parser = argparse.ArgumentParser(description="Argument parser for the window size of the KNN model")
+parser.add_argument("-w", "--window", type=int, help="Window size", required=True)
+args = parser.parse_args()
 
 MAX_NUMBER = 345
 JUST_CHECK_ATTACKS = True
@@ -74,8 +79,8 @@ fpr, tpr, _ = metrics.roc_curve(y_test,  y_pred)
 auc = metrics.roc_auc_score(y_test, y_pred)
 
 #create ROC curve
-plt.plot(fpr,tpr,label="AUC="+str(auc))
+plt.plot(fpr,tpr,label="AUC="+str(auc),  print.auc.pattern = "%.3f (%.3f-%.3f)")
 plt.ylabel('Taxa Verdadeiros Positivos')
 plt.xlabel('Taxa Falsos Positivos')
 plt.legend(loc=4)
-plt.show()
+plt.savefig(f"Imagens/SVM_W{args.window}")

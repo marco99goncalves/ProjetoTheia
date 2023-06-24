@@ -1,11 +1,16 @@
 import os
 import time
 
+models = ["KNN.py", "NaiveBayes.py", "RF.py", "SVM.py"]
+windows = ["2", "10"]
+
 st = time.time()
-for w in range(2, 11+1):
-    print(f"======Running Window Size of {w}======")
-    os.system(f"python3 Pre-Processamento/Pipeline.py -w {w} -p")
-    os.system(f"python3 Pre-Processamento/Models/AR.py -w {w}")
-    print("=======================================")
+
+for model in models:
+    for window in windows:
+        print(f"======Running Window Size of {window}======")
+        os.system(f"python3 Pre-Processamento/Pipeline.py -w {window} -p")
+        os.system(f"python3 Pre-Processamento/Models/{model} -w {window}")
+        print("=======================================")
 et = et.time()
 print("Ran all windows in: " + str(et - st))
