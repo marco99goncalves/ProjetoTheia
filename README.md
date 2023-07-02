@@ -14,9 +14,9 @@ This project requires a few 'pip' dependencies. To install them, run the followi
 <ul>
     <li>pip install pandas</li>
     <li>pip install scikit-learn</li>
-    <li>pip install scikit-learn</li>
-    <li>pip install scikit-learn</li>
-    <li>pip install scikit-learn</li>
+    <li>pip install keras</li>
+    <li>pip install matplotlib</li>
+    <li>pip install numpy</li>
 </ul>
 
 <h1>Running Pre-Processing phase</h1>
