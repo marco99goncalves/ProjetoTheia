@@ -1,5 +1,6 @@
 This repository contains a project for training different AI models to detect possible attacks on a system, using system calls.
 
+The final report for this project can be read by downloading the file "Relatório_Projeto___Marco_Gonçalves.pdf", beware that it is in portuguese.
 <hr>
 
 <h1>Setting up</h1>
